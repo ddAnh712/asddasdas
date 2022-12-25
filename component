@@ -1,0 +1,129 @@
+import { React, useState, useEffect } from "react";
+
+const Form = ({ onSubmit, student, handleStudentUpdate }) => {
+    const [enteredName, setEnteredName] = useState("");
+    const [enteredAge, setEnteredAge] = useState("");
+    const [enteredAddress, setEnteredAddress] = useState("");
+    const [enteredGender, setEnteredGender] = useState("");
+
+    useEffect(() => {
+        setEnteredName(student?.name);
+        setEnteredAge(student?.age);
+        setEnteredAddress(student?.address);
+        setEnteredGender(student?.gender)
+    }, [student])
+
+    const nameChangeHandler = (e) => {
+        setEnteredName(e.target.value);
+    };
+
+    const ageChangeHandler = (e) => {
+        setEnteredAge(e.target.value);
+    };
+
+    const addressChangeHandler = (e) => {
+        setEnteredAddress(e.target.value);
+    };
+
+    const genderChangeHandler = (e) => {
+        setEnteredGender(e.target.value);
+    };
+
+    const handleSubmit = () => {
+        const studentData = {
+            name: enteredName,
+            address: enteredAddress,
+            age: enteredAge,
+            gender: enteredGender,
+        };
+        onSubmit(studentData);
+        setEnteredName('');
+        setEnteredAddress('');
+        setEnteredAge('');
+        setEnteredGender('');
+    };
+
+    const handleUpdate = () => {
+        const data = {
+            name: enteredName,
+            address: enteredAddress,
+            age: enteredAge,
+            gender: enteredGender,
+        }
+        handleStudentUpdate(data)
+        setEnteredName('');
+        setEnteredAddress('');
+        setEnteredAge('');
+        setEnteredGender('');
+    }
+
+    return (
+        <div className="col-md-4">
+            <div className="form-group">
+                <label>Name</label>
+                <input
+                    type="text"
+                    name=""
+                    className="form-control"
+                    onChange={nameChangeHandler}
+                    value={enteredName}
+                />
+            </div>
+
+            <div className="form-group">
+                <label>Age</label>
+                <input
+                    type="text"
+                    name=""
+                    className="form-control"
+                    onChange={ageChangeHandler}
+                    value={enteredAge}
+                />
+            </div>
+
+            <div className="form-group">
+                <label>Address</label>
+                <input
+                    type="text"
+                    name=""
+                    className="form-control"
+                    onChange={addressChangeHandler}
+                    value={enteredAddress}
+                />
+            </div>
+
+            <div className="form-group">
+                <label>Gender</label>
+                <input
+                    type="text"
+                    name=""
+                    className="form-control"
+                    onChange={genderChangeHandler}
+                    value={enteredGender}
+                />
+            </div>
+
+            <div className="form-group mt-3">
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleSubmit}
+                >
+                    Add
+                </button>
+            </div>
+
+            <div className="form-group mt-3">
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleUpdate}
+                >
+                    Update
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default Form;
